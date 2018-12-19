@@ -3,6 +3,7 @@ package com.shopping.shopping.web.controller;
 import com.shopping.shopping.model.Commande;
 import com.shopping.shopping.model.Role;
 import com.shopping.shopping.service.RoleService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+@Api(description = "API pour les operations CRUD des roles")
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
