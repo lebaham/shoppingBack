@@ -5,6 +5,7 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 @Entity
 public class Commande implements Serializable {
@@ -14,8 +15,8 @@ public class Commande implements Serializable {
     @NaturalId
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int numeroCommande;
-    private LocalDate datecreation;
-    private LocalDate dateSuppression;
+    private LocalDateTime datecreation;
+    private LocalDateTime dateSuppression;
     @ManyToOne
     @JoinColumn(name="utilisateur_id")
     private Utilisateur utilisateur;
@@ -45,19 +46,19 @@ public class Commande implements Serializable {
         this.numeroCommande = numeroCommande;
     }
 
-    public LocalDate getDatecreation() {
+    public LocalDateTime getDatecreation() {
         return datecreation;
     }
 
-    public void setDatecreation(LocalDate datecreation) {
+    public void setDatecreation(LocalDateTime datecreation) {
         this.datecreation = datecreation;
     }
 
-    public LocalDate getDateSuppression() {
+    public LocalDateTime getDateSuppression() {
         return dateSuppression;
     }
 
-    public void setDateSuppression(LocalDate dateSuppression) {
+    public void setDateSuppression(LocalDateTime dateSuppression) {
         this.dateSuppression = dateSuppression;
     }
 
