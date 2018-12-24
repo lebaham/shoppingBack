@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Produit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduit;
+    @NotEmpty
     private String nomProduit;
     private String description;
     private Byte[] photos;

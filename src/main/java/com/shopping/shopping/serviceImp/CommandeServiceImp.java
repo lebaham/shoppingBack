@@ -15,6 +15,9 @@ public class CommandeServiceImp implements CommandeService {
     private CommandeDao commandeDao;
     @Override
     public  Commande addCommmande(Commande com) {
+        if(commandeDao.existsByNumeroCommande(com.getNumeroCommande())){
+            new Exception("la commande existe deja!");
+        }
         return commandeDao.save(com);
     }
 
@@ -30,6 +33,7 @@ public class CommandeServiceImp implements CommandeService {
 
     @Override
     public Optional<Commande> getCommande(Long idCommande) {
+
         return commandeDao.findById(idCommande);
     }
 
