@@ -1,6 +1,4 @@
 package com.shopping.shopping.web.controller;
-
-import com.shopping.shopping.model.Commande;
 import com.shopping.shopping.model.Role;
 import com.shopping.shopping.service.RoleService;
 import io.swagger.annotations.Api;
@@ -17,27 +15,27 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-@Api(description = "API pour les operations CRUD des roles")
+@CrossOrigin(origins="*")
+@Api(description = "API pour les roles")
 @RestController
-@RequestMapping("/api/role")
 public class RoleController {
     private final Logger log= LoggerFactory.getLogger(RoleController.class);
     @Autowired
     private RoleService roleService;
 
-    @PostMapping("/add")
+    @PostMapping("/roles")
     public ResponseEntity<Role> addRole(@Valid @RequestBody Role role)throws URISyntaxException {
         log.info("requete pour créer le role: {} ", role);
         Role result = roleService.addRole(role);
         return ResponseEntity.created(new URI("/api/role/add"+ result.getIdRole())).body(result);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/roles")
     public List<Role> getRoles(){
         return roleService.getRoles();
     }
 
-    @GetMapping("/{idRole}")
+    @GetMapping("roles/{idRole}")
     public ResponseEntity<?> getRole(@PathVariable Long idRole){
         Optional<Role> role =  roleService.getRole(idRole);
         return role.map(response -> ResponseEntity.ok().body(response))
@@ -45,16 +43,16 @@ public class RoleController {
 
     }
 
-    @PutMapping("/update")
+    @PutMapping("/roles")
     public ResponseEntity<Role> updateRole(@Valid @RequestBody Role role){
         log.info("Requete pour mettre à jour le role: {}");
         Role result = roleService.updateRole(role);
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/{idRole}")
+    @DeleteMapping("roles/{idRole}")
     public ResponseEntity<?> deleteRole(@PathVariable Long idRole){
-        log.info("Requete pour supprimer un Role: {}", idRole);
+        log.info("Requete pour supprimer un RoleEnum: {}", idRole);
         roleService.deleteRole(idRole);
         return ResponseEntity.ok().build();
     }

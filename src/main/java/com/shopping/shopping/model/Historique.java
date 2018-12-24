@@ -9,12 +9,15 @@ public class Historique implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHistorique;
-    @OneToMany
-    private List<Commande> commandes;
-    @OneToMany
-    private List<Produit>produits;
-    @OneToMany
-    private List<Compte>comptes;
+    @OneToOne
+    private Commande commande;
+    @OneToOne
+    private Produit produit ;
+    @OneToOne
+    private Compte compte;
+    @OneToOne
+    private  Utilisateur utilisateur;
+    private String action;
 
     public Long getIdHistorique() {
         return idHistorique;
@@ -24,27 +27,43 @@ public class Historique implements Serializable {
         this.idHistorique = idHistorique;
     }
 
-    public List<Commande> getCommandes() {
-        return commandes;
+    public Commande getCommande() {
+        return commande;
     }
 
-    public void setCommandes(List<Commande> commandes) {
-        this.commandes = commandes;
+    public void setCommande(Commande commande) {
+        this.commande = commande;
     }
 
-    public List<Produit> getProduits() {
-        return produits;
+    public Produit getProduit() {
+        return produit;
     }
 
-    public void setProduits(List<Produit> produits) {
-        this.produits = produits;
+    public void setProduit(Produit produit) {
+        this.produit = produit;
     }
 
-    public List<Compte> getComptes() {
-        return comptes;
+    public Compte getCompte() {
+        return compte;
     }
 
-    public void setComptes(List<Compte> comptes) {
-        this.comptes = comptes;
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }

@@ -3,6 +3,7 @@ package com.shopping.shopping.web.controller;
 import com.shopping.shopping.model.Historique;
 import com.shopping.shopping.service.HistoriqueService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,30 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-@Api(description = "API pour les operations CRUD des Historique")
+@CrossOrigin(origins="*")
+@Api(description = "API pour les  Historiques")
 @RestController
-@RequestMapping("/api/historique")
 public class HistoriqueController {
     private final Logger log= LoggerFactory.getLogger(CommandeController.class);
     @Autowired
     private HistoriqueService historiqueService;
 
-    @PostMapping("/add")
+    @ApiOperation(value = "ajoute un historique")
+    @PostMapping("/historiques")
     public ResponseEntity<Historique> addHistorique(@Valid @RequestBody Historique historique)throws URISyntaxException {
         log.info("requete pour créer l'historique: {} ", historique);
         Historique result = historiqueService.addHistorique(historique);
         return ResponseEntity.created(new URI("/api/commande/add"+ result.getIdHistorique())).body(result);
     }
 
-    @GetMapping("/all")
+    @ApiOperation(value = "Recupere tout les historiques")
+    @GetMapping("/historiques")
     public List<Historique> getHistoriques(){
         return historiqueService.getHistoriques();
     }
 
-    @GetMapping("/{idCommande}")
+    @ApiOperation(value = "Récupere un historique à partir de son id")
+    @GetMapping("historiques/{idCommande}")
     public ResponseEntity<?> getHistorique(@PathVariable Long idHistorique){
         Optional<Historique> historique =  historiqueService.getHistorique(idHistorique);
         return historique.map(response -> ResponseEntity.ok().body(response))
