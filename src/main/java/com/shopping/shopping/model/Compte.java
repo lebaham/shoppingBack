@@ -26,6 +26,7 @@ public class Compte implements Serializable {
     private Utilisateur utilisateur;
     @OneToMany
     private List<Historique> historiques;
+    private String etat;
 
     public Compte() {
     }

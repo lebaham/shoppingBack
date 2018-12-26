@@ -1,8 +1,8 @@
 package com.shopping.shopping.enumeration;
 
 public enum RoleEnum {
-    CLIENT("client"),
-    ADMIN("admin");
+    CLIENT("Client"),
+    ADMIN("Admin");
     private String name;
     RoleEnum(String name){
         this.name = name;
