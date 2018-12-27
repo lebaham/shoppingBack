@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Compte implements Serializable {
+public class Compte  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCompte;
@@ -20,6 +20,8 @@ public class Compte implements Serializable {
     private String username;
     @NotNull
     private String password;
+    @Transient
+    private String confirmPassword;
     @Email
     private String email;
     @OneToOne(mappedBy = "compte", cascade = CascadeType.ALL)
@@ -53,6 +55,22 @@ public class Compte implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
     public String getEmail() {

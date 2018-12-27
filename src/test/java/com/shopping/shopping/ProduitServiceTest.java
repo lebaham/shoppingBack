@@ -1,6 +1,7 @@
 package com.shopping.shopping;
 
 import com.shopping.shopping.dao.ProduitDao;
+import com.shopping.shopping.exception.ProduitException;
 import com.shopping.shopping.model.Produit;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -29,7 +30,7 @@ public class ProduitServiceTest {
     @Mock
     private ProduitDao produitDao;
     @Mock
-    private Produit produit;
+    private ProduitException produitIntrouvableException;
 
     @Before
     public void setupMock(){
@@ -38,27 +39,20 @@ public class ProduitServiceTest {
 
     @Test
     public void addProduitTest(){
+        Produit produit  = new Produit();
         produit.setIdProduit(ID_PRODUIT_1);
         LocalDateTime localDate = LocalDateTime.now();
         produit.setDateCreation(localDate);
         produit.setDescription("produit certifié");
         produit.setPays("cameroun");
-        when(produitDao.save(produit)).thenReturn(produit);
-        Produit produitTest = produitServiceImp.addProduit(produit);
-        assertEquals(produit.getIdProduit(), produitTest.getIdProduit());
-        assertEquals(produit.getDescription(), produitTest.getDescription());
-        assertEquals(produit.getPays(), produitTest.getPays());
-        assertEquals(produit.getDateCreation(), produitTest.getDateCreation());
-        verify(produitDao,times(1)).save(produit);
-        assertThat(produitTest, is(equalTo(produit)));
+        try {
+            produitServiceImp.addProduit(produit);
+        } catch (ProduitException e){
+            assertEquals("le nom du produit doit etre renseigné!!", e.getMessage());
+        }
+        produit.setNomProduit("chocolat");
+
+
     }
 
-    public void getProduitTest(){
-        produit.setIdProduit(ID_PRODUIT_1);
-        when(produitDao.findById(ID_PRODUIT_1)).thenReturn(Optional.ofNullable(produit));
-        Optional<Produit> produitTest = produitServiceImp.getProduit(ID_PRODUIT_1);
-        verify(produitDao,times(1)).findById(ID_PRODUIT_1);
-        verify(produitDao,never()).deleteById(ID_PRODUIT_1);
-        assertThat(produitTest, is(equalTo(produit)));
-    }
 }

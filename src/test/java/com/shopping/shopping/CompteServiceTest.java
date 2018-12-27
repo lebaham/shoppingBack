@@ -1,6 +1,7 @@
 package com.shopping.shopping;
 
 import com.shopping.shopping.dao.CompteDao;
+import com.shopping.shopping.exception.CommandeException;
 import com.shopping.shopping.exception.CompteException;
 import com.shopping.shopping.model.Compte;
 import com.shopping.shopping.serviceImp.CompteServiceImp;
@@ -13,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,11 +37,12 @@ public class CompteServiceTest {
     public void addCompteTest(){
         compte.setIdCompte(ID_COMPTE_1);
         compte.setUsername("steve");
-        when(compteDao.save(compte)).thenReturn(compte);
-        when(compteDao.existsByUsername(compte.getUsername())).thenReturn(true);
-        verify(compteDao, times(1)).existsByUsername("steve");
-        Compte compteTest = compteServiceImp.addCompte(compte);
-        assertEquals("le compte avec le username "+compte.getUsername()+" existe deja",compteTest );
+        when(compteDao.existsByUsername("steve")).thenReturn(true);
+        try {
+            compteServiceImp.addCompte(compte);
+        } catch (CompteException e){
+            assertEquals("le compte avec le username steve existe deja", e.getMessage());
+        }
 
     }
 }

@@ -23,7 +23,8 @@ import java.util.Optional;
 @CrossOrigin(origins="*")
 @Api(description = "API pour les comptes")
 @RestController
-public class CompteController {
+public class CompteController extends AbstractController<Compte,Long> {
+
     private final Logger log= LoggerFactory.getLogger(CompteController.class);
     @Autowired
     private CompteService compteService;

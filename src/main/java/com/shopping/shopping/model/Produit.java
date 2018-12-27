@@ -105,4 +105,5 @@ public class Produit implements Serializable {
     public void setHistoriques(List<Historique> historiques) {
         this.historiques = historiques;
     }
+
 }

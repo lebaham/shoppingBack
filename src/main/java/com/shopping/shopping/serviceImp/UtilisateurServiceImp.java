@@ -20,10 +20,10 @@ public class UtilisateurServiceImp implements UtilisateurService {
     private UtilisateurDao utilisateurDao;
     @Override
     public Utilisateur addUtilisateur(Utilisateur utilisateur) {
-        if (utilisateur.getNom().isEmpty()){
+        if (utilisateur.getNom() == null){
             throw new UtilisateurException("le nom de l'utilisateur doit etre renseigné");
         }
-        if(utilisateur.getPrenom().isEmpty()){
+        if(utilisateur.getPrenom() == null){
             throw new UtilisateurException("le prenom de l'utilisateur doit etre renseigné");
         }
         return utilisateurDao.save(utilisateur);
