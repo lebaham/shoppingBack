@@ -7,8 +7,4 @@ import java.util.Optional;
 
 public interface UtilisateurService {
     Utilisateur addUtilisateur(Utilisateur utilisateur);
-    Utilisateur updateUtilisateur(Utilisateur utilisateur);
-    Optional<Utilisateur> getUtilisateur(Long idUtilisateur);
-    void   deleteUtilisateur(Long idUser);
-    List<Utilisateur> getUtilisateurs();
 }

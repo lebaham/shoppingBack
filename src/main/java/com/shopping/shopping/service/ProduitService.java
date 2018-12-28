@@ -8,8 +8,4 @@ import java.util.Optional;
 
 public interface ProduitService {
     Produit addProduit(Produit produit) throws ProduitException;
-    Produit updateProduit(Produit produit);
-    Optional<Produit> getProduit(Long idProduit) throws ProduitException;
-    void    deleteProduit(Long idProduit) throws ProduitException;
-    List<Produit> getProduits();
 }

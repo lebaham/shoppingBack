@@ -1,6 +1,7 @@
 package com.shopping.shopping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,7 +10,9 @@ public class Utilisateur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUtilisateur;
+    @NotNull
     private String nom;
+    @NotNull
     private String prenom;
     private int age;
     private String telephone;
@@ -20,6 +23,11 @@ public class Utilisateur implements Serializable {
     private List<Commande>commandes;
     @OneToOne
     private Compte compte;
+    private String pays;
+    @OneToMany
+    private List<Historique>historiques;
+    private int point;
+
 
     public Utilisateur() {
     }
@@ -95,5 +103,29 @@ public class Utilisateur implements Serializable {
 
     public void setCompte(Compte compte) {
         this.compte = compte;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public List<Historique> getHistoriques() {
+        return historiques;
+    }
+
+    public void setHistoriques(List<Historique> historiques) {
+        this.historiques = historiques;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

@@ -7,25 +7,28 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Compte implements Serializable {
+public class Compte  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCompte;
     @NaturalId
-    @Length(min = 3, max = 15)
+    @Length(min = 3, max = 15, message = "le username trop long ou trop court")
     @NotNull
     private String username;
     @NotNull
     private String password;
+    @Transient
+    private String confirmPassword;
     @Email
     private String email;
     @OneToOne(mappedBy = "compte", cascade = CascadeType.ALL)
     private Utilisateur utilisateur;
-    @ManyToOne
-    @JoinColumn(name="historique_id")
-    private Historique historique;
+    @OneToMany
+    private List<Historique> historiques;
+    private String etat;
 
     public Compte() {
     }
@@ -54,6 +57,22 @@ public class Compte implements Serializable {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -70,11 +89,11 @@ public class Compte implements Serializable {
         this.utilisateur = utilisateur;
     }
 
-    public Historique getHistorique() {
-        return historique;
+    public List<Historique> getHistoriques() {
+        return historiques;
     }
 
-    public void setHistorique(Historique historique) {
-        this.historique = historique;
+    public void setHistoriques(List<Historique> historiques) {
+        this.historiques = historiques;
     }
 }

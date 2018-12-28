@@ -4,7 +4,6 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity
@@ -23,9 +22,10 @@ public class Commande implements Serializable {
     @ManyToMany
     @JoinTable(name = "commande_produit", joinColumns = @JoinColumn(name = "id_commande"), inverseJoinColumns = @JoinColumn(name = "id_produit"))
     private List<Produit>produits;
-    @ManyToOne
-    @JoinColumn(name="historique_id")
-    private Historique historique;
+    @OneToMany
+    private List<Historique> historiques;
+    private String statusCommande;
+    private LocalDateTime dateLivraison;
 
     public Commande() {
     }
@@ -78,11 +78,27 @@ public class Commande implements Serializable {
         this.produits = produits;
     }
 
-    public Historique getHistorique() {
-        return historique;
+    public List<Historique> getHistoriques() {
+        return historiques;
     }
 
-    public void setHistorique(Historique historique) {
-        this.historique = historique;
+    public void setHistoriques(List<Historique> historiques) {
+        this.historiques = historiques;
+    }
+
+    public String getStatusCommande() {
+        return statusCommande;
+    }
+
+    public void setStatusCommande(String statusCommande) {
+        this.statusCommande = statusCommande;
+    }
+
+    public LocalDateTime getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDateTime dateLivraison) {
+        this.dateLivraison = dateLivraison;
     }
 }

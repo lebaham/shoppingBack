@@ -4,9 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,14 +15,17 @@ public class Produit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduit;
-    @NotEmpty
+    @NotNull
     private String nomProduit;
     private String description;
     private Byte[] photos;
-    private LocalDate dateCreation;
-    private LocalDate dateSuppression;
+    private LocalDateTime dateCreation;
+    private LocalDateTime dateSuppression;
     private double prix;
     private int quantite;
+    private String pays;
+    @OneToMany
+    private List<Historique> historiques;
 
     public Produit() {
     }
@@ -58,19 +62,19 @@ public class Produit implements Serializable {
         this.photos = photos;
     }
 
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDate dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public LocalDate getDateSuppression() {
+    public LocalDateTime getDateSuppression() {
         return dateSuppression;
     }
 
-    public void setDateSuppression(LocalDate dateSuppression) {
+    public void setDateSuppression(LocalDateTime dateSuppression) {
         this.dateSuppression = dateSuppression;
     }
 
@@ -89,4 +93,21 @@ public class Produit implements Serializable {
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public List<Historique> getHistoriques() {
+        return historiques;
+    }
+
+    public void setHistoriques(List<Historique> historiques) {
+        this.historiques = historiques;
+    }
+
 }
