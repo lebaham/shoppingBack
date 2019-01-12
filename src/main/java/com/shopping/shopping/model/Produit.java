@@ -20,8 +20,7 @@ public class Produit implements Serializable {
     private String description;
     private Byte[] photos;
     private LocalDateTime dateCreation;
-    private LocalDateTime dateSuppression;
-    private double prix;
+    private Double prix;
     private int quantite;
     private String pays;
     @OneToMany
@@ -68,14 +67,6 @@ public class Produit implements Serializable {
 
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
-    }
-
-    public LocalDateTime getDateSuppression() {
-        return dateSuppression;
-    }
-
-    public void setDateSuppression(LocalDateTime dateSuppression) {
-        this.dateSuppression = dateSuppression;
     }
 
     public double getPrix() {

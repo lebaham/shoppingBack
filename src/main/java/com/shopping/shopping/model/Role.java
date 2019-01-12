@@ -10,17 +10,17 @@ import java.io.Serializable;
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idRole;
+    private Long idRole;
     private String name;
 
     public Role() {
     }
 
-    public int getIdRole() {
+    public Long getIdRole() {
         return idRole;
     }
 
-    public void setIdRole(int idRole) {
+    public void setIdRole(Long idRole) {
         this.idRole = idRole;
     }
 

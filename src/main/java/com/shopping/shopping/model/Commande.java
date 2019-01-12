@@ -12,7 +12,6 @@ public class Commande implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCommande;
     @NaturalId
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int numeroCommande;
     private LocalDateTime datecreation;
     private LocalDateTime dateSuppression;

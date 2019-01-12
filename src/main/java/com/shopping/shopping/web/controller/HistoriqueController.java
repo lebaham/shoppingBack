@@ -1,10 +1,7 @@
 package com.shopping.shopping.web.controller;
 
-import com.shopping.shopping.model.Commande;
 import com.shopping.shopping.model.Historique;
 import com.shopping.shopping.service.HistoriqueService;
-import com.shopping.shopping.service.ShoppingService;
-import com.shopping.shopping.serviceImp.AbstractShoppingServiceImp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -26,26 +23,26 @@ import java.util.Optional;
 public class HistoriqueController {
     private final Logger log= LoggerFactory.getLogger(CommandeController.class);
     @Autowired
-    private AbstractShoppingServiceImp<Historique,Long> shoppingHistoriqueService;
+    private HistoriqueService historiqueService;
 
     @ApiOperation(value = "ajoute un historique")
     @PostMapping("/historiques")
     public ResponseEntity<Historique> addHistorique(@Valid @RequestBody Historique historique)throws URISyntaxException {
         log.info("requete pour créer l'historique: {} ", historique);
-        Historique result = shoppingHistoriqueService.add(historique);
+        Historique result = historiqueService.save(historique);
         return ResponseEntity.created(new URI("/api/commande/add"+ result.getIdHistorique())).body(result);
     }
 
     @ApiOperation(value = "Recupere tout les historiques")
     @GetMapping("/historiques")
     public List<Historique> getHistoriques(){
-        return shoppingHistoriqueService.getAll();
+        return historiqueService.getHistoriques();
     }
 
     @ApiOperation(value = "Récupere un historique à partir de son id")
     @GetMapping("historiques/{idCommande}")
     public ResponseEntity<?> getHistorique(@PathVariable Long idHistorique){
-        Optional<Historique> historique =  shoppingHistoriqueService.get(idHistorique);
+        Optional<Historique> historique =  historiqueService.getHistorique(idHistorique);
         return historique.map(response -> ResponseEntity.ok().body(response))
                 .orElse((new ResponseEntity<>(HttpStatus.NOT_FOUND)));
 
